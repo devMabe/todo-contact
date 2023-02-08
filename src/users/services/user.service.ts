@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { User } from '../models/user.entity'
@@ -15,16 +15,31 @@ export class UserService {
   }
 
   findOne(id: number): Promise<User> {
-    return this.userRepository.findOneBy({ id })
+    const userFound = this.userRepository.findOneBy({ id })
+    if (userFound) {
+      return userFound
+    }
   }
 
-  async register(user: Omit<UserModel, 'id'>) : Promise<User> {
-    console.log("parametros en el servicio",user)
-    console.log(this.userRepository.create(user))
-    return this.userRepository.create(user)
+  async register(user: Omit<UserModel, 'id'>): Promise<User> {
+    const newUser = this.userRepository.create(user)
+    await this.userRepository.save(newUser)
+    return newUser
   }
 
-  async remove(id: string): Promise<void> {
+  async remove(id: number): Promise<void> {
     await this.userRepository.delete(id)
+  }
+
+  async update(
+    id: number,
+    user: Omit<UserModel, 'id' | 'password'>,
+  ): Promise<User> {
+    const userFound = await this.userRepository.findOneBy({ id })
+    if (userFound) {
+      const updateUser = Object.assign(userFound, user)
+      await this.userRepository.save(updateUser)
+    }
+    return userFound
   }
 }
