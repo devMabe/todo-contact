@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Post, Req } from '@nestjs/common'
+import { toTransfromUser } from 'src/utils/user.util'
 import { UserModel } from '../models/user.model'
 import { UserService } from '../services/user.service'
 
@@ -7,8 +8,9 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
-   getUsers() {
-    return this.userService.getAll()  
+  async getUsers() {
+    const resp = await this.userService.getAll()
+    return resp.map((user) => toTransfromUser(user))
   }
 
   @Post()
