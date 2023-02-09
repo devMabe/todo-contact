@@ -1,9 +1,11 @@
-import { Module } from '@nestjs/common'
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ConfigModule } from '@nestjs/config'
 import { UserModule } from './users/user.module'
 import { User } from './users/models/user.entity'
 import { UserService } from './users/services/user.service'
+import { AuthModule } from './auth/auth.module'
+import { checkJWT } from './auth/middleware/session'
 @Module({
   imports: [
     ConfigModule.forRoot({isGlobal: true}),
@@ -18,6 +20,11 @@ import { UserService } from './users/services/user.service'
       synchronize: true,
     }),
     UserModule,
+    AuthModule
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(checkJWT).forRoutes('user')
+  }
+}

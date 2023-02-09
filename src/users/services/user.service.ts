@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { encrypt, verified } from 'src/utils/bcrypt'
 import { generateToken } from 'src/utils/jwt'
 import { Repository } from 'typeorm'
-import { Token } from '../models/auth.model'
+import { Token } from '../../auth/models/auth.model'
 import { User } from '../models/user.entity'
 import { UserModel } from '../models/user.model'
 

@@ -1,8 +1,8 @@
 import { sign, verify } from 'jsonwebtoken'
-import { UserModel } from '../users/models/user.model'
-import 'dotenv'
-import { tokenData } from 'src/users/models/auth.model'
-const JWT_SECRET = process.env.JWT_SECRET || 'defualt0101'
+import 'dotenv/config'
+import { tokenData } from 'src/auth/models/auth.model'
+
+const JWT_SECRET = process.env.JWT_SECRET || 'sarasa'
 
 const generateToken = async (user: tokenData) => {
   const jwt = sign(user, JWT_SECRET, { expiresIn: '1h' })

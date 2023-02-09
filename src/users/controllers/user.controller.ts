@@ -9,7 +9,6 @@ import {
   ParseIntPipe,
   Post,
   Put,
-  Req,
 } from '@nestjs/common'
 import { toTransfromUser } from 'src/utils/user.util'
 import { UserModel } from '../models/user.model'
