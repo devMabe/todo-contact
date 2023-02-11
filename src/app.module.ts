@@ -29,6 +29,12 @@ import { ContacModule } from './contacts/contact.module'
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(checkJWT).forRoutes('user'),
-    consumer.apply(checkJWT).forRoutes({path: 'auth', method: RequestMethod.GET},{path: 'contacts', method: RequestMethod.ALL})
+    consumer.apply(checkJWT).forRoutes(
+      {path: 'auth', method: RequestMethod.GET},
+      {path: 'contacts', method: RequestMethod.POST},
+      {path: 'contacts', method: RequestMethod.GET},
+      {path: 'contacts/:phoneNumber', method: RequestMethod.GET},
+      {path: 'contacts/:phoneNumber', method: RequestMethod.DELETE},
+      {path: 'contacts/:phoneNumber', method: RequestMethod.PUT })
   }
 }
