@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Post, Req } from '@nestjs/common'
 import { Request } from 'express'
 import { JwtPayload } from 'jsonwebtoken'
+import { requestParamContact } from 'src/utils/contact.util'
 import { UserModel } from '../../users/models/user.model'
 import { UserService } from '../../users/services/user.service'
-
 
 @Controller('auth')
 export class AuthController {
@@ -11,9 +11,8 @@ export class AuthController {
 
   @Get()
   saludar(@Req() req: Request) {
-    const { user }  = req
-    const newArray = Object.values(user)
-    return `Hello ${newArray[0]} !`
+    const email = requestParamContact(req)
+    return `Hello ${email} como vas !`
   }
 
   @Post('register')

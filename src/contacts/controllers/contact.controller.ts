@@ -9,6 +9,7 @@ import {
   Req,
 } from '@nestjs/common'
 import { Request } from 'express'
+import { requestParamContact } from 'src/utils/contact.util'
 import { ContactModel } from '../models/contact.model'
 import { ContactService } from '../services/contact.service'
 
@@ -18,9 +19,8 @@ export class ContactController {
 
   @Post()
   createContact(@Req() req: Request, @Body() contact: ContactModel) {
-    const { user } = req
-    const userArray = Object.values(user)
-    return this.contactService.create(userArray[0], contact)
+    const email = requestParamContact(req)
+    return this.contactService.create(email, contact)
   }
 
   @Put(':phoneNumber')
@@ -29,23 +29,20 @@ export class ContactController {
     @Param('phoneNumber') phoneNumber: string,
     @Body() contact: ContactModel,
   ) {
-    const { user } = req
-    const userArray = Object.values(user)
-    return this.contactService.update(userArray[0], phoneNumber, contact)
+    const email = requestParamContact(req)
+    return this.contactService.update(email, phoneNumber, contact)
   }
 
   @Get()
   getContacts(@Req() req: Request) {
-    const { user } = req
-    const userArray = Object.values(user)
-    return this.contactService.getAll(userArray[0])
+    const email = requestParamContact(req)
+    return this.contactService.getAll(email)
   }
 
   @Get(':phoneNumber')
   getContact(@Req() req: Request, @Param('phoneNumber') phoneNumber: string) {
-    const { user } = req
-    const userArray = Object.values(user)
-    return this.contactService.getOne(userArray[0], phoneNumber)
+    const email = requestParamContact(req)
+    return this.contactService.getOne(email, phoneNumber)
   }
 
   @Delete(':phoneNumber')
@@ -53,8 +50,7 @@ export class ContactController {
     @Req() req: Request,
     @Param('phoneNumber') phoneNumber: string,
   ) {
-    const { user } = req
-    const userArray = Object.values(user)
-    return this.contactService.deleteOne(userArray[0], phoneNumber)
+    const email = requestParamContact(req)
+    return this.contactService.deleteOne(email, phoneNumber)
   }
 }
