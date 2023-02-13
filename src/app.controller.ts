@@ -2,7 +2,7 @@ import { Controller, Get, HttpStatus } from '@nestjs/common'
 
 @Controller()
 export class AppController {
-  @Get()
+  @Get('health')
   getHelCheck() {
     const healthcheck = {
       uptime: process.uptime(),
