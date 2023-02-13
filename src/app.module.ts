@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module'
 import { checkJWT } from './auth/middleware/session'
 import { Contact } from './contacts/models/contact.entity'
 import { ContacModule } from './contacts/contact.module'
+import { AppController } from './app.controller'
 @Module({
   imports: [
     ConfigModule.forRoot({isGlobal: true}),
@@ -25,6 +26,7 @@ import { ContacModule } from './contacts/contact.module'
     AuthModule,
     ContacModule
   ],
+  controllers:[AppController]
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
