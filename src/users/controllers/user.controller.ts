@@ -9,10 +9,7 @@ import {
   ParseIntPipe,
   Post,
   Put,
-  Req,
 } from '@nestjs/common'
-import { Request } from 'express'
-import { JwtPayload } from 'jsonwebtoken'
 import { toTransfromUser } from 'src/utils/user.util'
 import { UserModel } from '../models/user.model'
 import { UserService } from '../services/user.service'
