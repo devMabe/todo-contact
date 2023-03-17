@@ -8,6 +8,7 @@ import { checkJWT } from './auth/middleware/session'
 import { Contact } from './contacts/models/contact.entity'
 import { ContacModule } from './contacts/contact.module'
 import { AppController } from './app.controller'
+
 @Module({
   imports: [
     ConfigModule.forRoot({isGlobal: true}),
