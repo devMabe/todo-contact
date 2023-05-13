@@ -1,6 +1,5 @@
 import { Body, Controller, Get, Post, Req } from '@nestjs/common'
 import { Request } from 'express'
-import { JwtPayload } from 'jsonwebtoken'
 import { requestParamContact } from 'src/utils/contact.util'
 import { UserModel } from '../../users/models/user.model'
 import { UserService } from '../../users/services/user.service'
