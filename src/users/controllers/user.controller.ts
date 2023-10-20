@@ -14,7 +14,6 @@ import { toTransfromUser } from 'src/utils/user.util'
 import { UserModel } from '../models/user.model'
 import { UserService } from '../services/user.service'
 
-
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}

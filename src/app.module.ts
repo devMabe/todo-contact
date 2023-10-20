@@ -1,4 +1,9 @@
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common'
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ConfigModule } from '@nestjs/config'
 import { UserModule } from './users/user.module'
@@ -11,7 +16,7 @@ import { AppController } from './app.controller'
 
 @Module({
   imports: [
-    ConfigModule.forRoot({isGlobal: true}),
+    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST,
@@ -24,19 +29,22 @@ import { AppController } from './app.controller'
     }),
     UserModule,
     AuthModule,
-    ContacModule
+    ContacModule,
   ],
-  controllers:[AppController]
+  controllers: [AppController],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(checkJWT).forRoutes('user'),
-    consumer.apply(checkJWT).forRoutes(
-      {path: 'auth', method: RequestMethod.GET},
-      {path: 'contacts', method: RequestMethod.POST},
-      {path: 'contacts', method: RequestMethod.GET},
-      {path: 'contacts/:phoneNumber', method: RequestMethod.GET},
-      {path: 'contacts/:phoneNumber', method: RequestMethod.DELETE},
-      {path: 'contacts/:phoneNumber', method: RequestMethod.PUT })
+      consumer
+        .apply(checkJWT)
+        .forRoutes(
+          { path: 'auth', method: RequestMethod.GET },
+          { path: 'contacts', method: RequestMethod.POST },
+          { path: 'contacts', method: RequestMethod.GET },
+          { path: 'contacts/:phoneNumber', method: RequestMethod.GET },
+          { path: 'contacts/:phoneNumber', method: RequestMethod.DELETE },
+          { path: 'contacts/:phoneNumber', method: RequestMethod.PUT },
+        )
   }
 }

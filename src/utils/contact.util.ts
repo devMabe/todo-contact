@@ -12,7 +12,7 @@ export function transformContact(contact: Contact) {
   return resp
 }
 
-export function requestParamContact(req: Request) : string {
+export function requestParamContact(req: Request): string {
   const { user } = req
   const userArray = Object.values(user)
   return userArray[0]

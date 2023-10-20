@@ -16,6 +16,6 @@ export class Contact implements ContactModel {
   @Column()
   lastName?: string
 
-  @ManyToOne((type) => User, (user) => user.contacts)
+  @ManyToOne(() => User, (user) => user.contacts)
   user: User
 }

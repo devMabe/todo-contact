@@ -56,7 +56,8 @@ export class UserService {
 
   async login({ email, password }: UserModel): Promise<Token> {
     const checkIs = await this.userRepository.findOneBy({ email })
-    if (!checkIs) throw new HttpException('Email not found', HttpStatus.NOT_FOUND)
+    if (!checkIs)
+      throw new HttpException('Email not found', HttpStatus.NOT_FOUND)
     const passwordHash = checkIs.password
     const isCorrect = await verified(password, passwordHash)
     if (!isCorrect)

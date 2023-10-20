@@ -65,9 +65,10 @@ export class ContactService {
       try {
         const resp = await this.contactRepository.findOneBy({
           phoneNumber,
-          user: relation
+          user: relation,
         })
-        if (resp) throw new HttpException('contact already exist', HttpStatus.CONFLICT)
+        if (resp)
+          throw new HttpException('contact already exist', HttpStatus.CONFLICT)
         const newContact = this.contactRepository.create({
           firstName,
           lastName,
